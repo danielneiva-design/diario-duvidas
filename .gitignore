@@ -1,0 +1,6 @@
+target/
+diario.txt
+.vscode/
+.DS_Store
+*.zip
+.mvn/wrapper/maven-wrapper.jar
