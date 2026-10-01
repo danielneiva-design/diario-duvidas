@@ -2,6 +2,7 @@ package br.com.daniel.diario.modelo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Duvida {
 
@@ -11,7 +12,7 @@ public class Duvida {
     private final LocalDateTime datahora;
 
     public Duvida(String mensagem) {
-        this(mensagem, LocalDateTime.now());
+        this(mensagem, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
     }
 
     public Duvida(String mensagem, LocalDateTime datahora) {
