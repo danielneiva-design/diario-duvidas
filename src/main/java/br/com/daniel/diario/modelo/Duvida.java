@@ -11,8 +11,12 @@ public class Duvida {
     private final LocalDateTime datahora;
 
     public Duvida(String mensagem) {
+        this(mensagem, LocalDateTime.now());
+    }
+
+    public Duvida(String mensagem, LocalDateTime datahora) {
         this.mensagem = mensagem;
-        this.datahora = LocalDateTime.now();
+        this.datahora = datahora;
     }
 
     public String getMensagem() {
@@ -26,5 +30,12 @@ public class Duvida {
     @Override
     public String toString() {
         return datahora.format(FORMATO) + " - " + mensagem;
+    }
+
+    public static Duvida deLinha(String linha) {
+        String[] partes = linha.split(" - ", 2);
+        LocalDateTime datahora = LocalDateTime.parse(partes[0], FORMATO);
+        String mensagem = partes[1];
+        return new Duvida(mensagem, datahora);
     }
 }
