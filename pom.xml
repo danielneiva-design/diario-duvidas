@@ -21,4 +21,18 @@
             <version>3.1.5</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Permite rodar o console pelo Maven, já com o Jackson: ./mvnw -q compile exec:java -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.6.2</version>
+                <configuration>
+                    <mainClass>br.com.daniel.diario.App</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
