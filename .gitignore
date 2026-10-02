@@ -4,3 +4,4 @@ diario.txt
 .DS_Store
 *.zip
 .mvn/wrapper/maven-wrapper.jar
+.env

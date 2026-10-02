@@ -5,13 +5,24 @@ import br.com.daniel.diario.repositorio.DiarioArquivo;
 import br.com.daniel.diario.repositorio.DuvidaApi;
 import br.com.daniel.diario.servico.Sincronizador;
 
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.Properties;
 
 public class App {
 
     public void main() {
         DiarioArquivo diario = new DiarioArquivo("diario.txt");
-        DuvidaApi api = new DuvidaApi("http://localhost:8080/duvidas");
+         // Lê o endereço da API e a chave do arquivo .env (que não vai pro GitHub)
+        Properties config = new Properties();
+        try (FileReader arquivo = new FileReader(".env")) {
+            config.load(arquivo);
+        } catch (IOException e) {
+            IO.println("Não encontrei o arquivo .env com API_URL e API_KEY. Crie ele na pasta do projeto.");
+            return;
+        }
+
+        DuvidaApi api = new DuvidaApi(config.getProperty("API_URL"), config.getProperty("API_KEY"));
         Sincronizador sincronizador = new Sincronizador(diario, api);
 
         IO.println("\nBem-vindo ao diário de dúvidas!\nAqui você pode registrar suas dúvidas e salvá-las em um arquivo de texto.\n");
