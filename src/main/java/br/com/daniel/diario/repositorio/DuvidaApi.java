@@ -40,7 +40,7 @@ public class DuvidaApi {
 
         HttpResponse<String> resposta = cliente.send(pedido, HttpResponse.BodyHandlers.ofString());
 
-        if (resposta.statusCode() != 200) {
+        if (!deuCerto(resposta)) {
             throw new IOException("a API respondeu " + resposta.statusCode());
         }
         return resposta.body();
@@ -55,10 +55,15 @@ public class DuvidaApi {
 
         HttpResponse<String> resposta = cliente.send(pedido, HttpResponse.BodyHandlers.ofString());
 
-        if (resposta.statusCode() != 200) {
+        if (!deuCerto(resposta)) {
             throw new IOException("a API respondeu " + resposta.statusCode());
         }
         return json.readValue(resposta.body(), new TypeReference<List<DuvidaSalva>>() {
         });
+    }
+
+    // Qualquer código 2xx é sucesso: 200 (OK), 201 (Created), 204 (No Content)...
+    private boolean deuCerto(HttpResponse<String> resposta) {
+        return resposta.statusCode() >= 200 && resposta.statusCode() < 300;
     }
 }
